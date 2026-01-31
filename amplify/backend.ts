@@ -2,6 +2,7 @@ import { defineBackend } from "@aws-amplify/backend";
 import { auth } from "./auth/resource";
 // import { data } from "./data/resource";
 import { apiHandler } from "./functions/resource";
+import * as cdk from "aws-cdk-lib";
 import * as agw from "aws-cdk-lib/aws-apigatewayv2";
 import * as agwIntegration from "aws-cdk-lib/aws-apigatewayv2-integrations";
 
@@ -16,9 +17,7 @@ const backend = defineBackend({
 
 const { lambda: apiLambda } = backend.apiHandler.resources;
 
-const backendStack = backend.createStack("backend");
-
-const api = new agw.HttpApi(backendStack, "HttpApi", {
+const api = new agw.HttpApi(backend.stack, "HttpApi", {
   apiName: "myHttpApi",
   corsPreflight: {
     allowMethods: [
@@ -39,4 +38,16 @@ api.addRoutes({
   path: "/{proxy+}",
   methods: [agw.HttpMethod.ANY],
   integration: apiIntegration,
+});
+
+backend.addOutput({
+  custom: {
+    API: {
+      [api.httpApiName!]: {
+        endpoint: api.url,
+        region: cdk.Stack.of(api).region,
+        apiName: api.httpApiName,
+      },
+    },
+  },
 });
