@@ -1,30 +1,18 @@
 package main
 
 import (
-	"context"
-	"fmt"
+	"log"
+	"os"
 
-	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/gofiber/fiber/v3"
 )
 
-type Event struct {
-	Arguments Arguments `json:"arguments"`
-}
-
-type Arguments struct {
-	Title string `json:"phone"`
-	Msg   string `json:"msg"`
-}
-
-func HandleRequest(ctx context.Context, event Event) (string, error) {
-	fmt.Println("Received event: ", event)
-
-	// fmt.Println("Message sent to: ", event.Arguments.Msg)
-	// You can use lambda arguments in your code
-
-	return "Hello World!", nil
-}
-
 func main() {
-	lambda.Start(HandleRequest)
+	app := fiber.New()
+
+	app.Get("/api/v1/hello", func(c fiber.Ctx) error {
+		return c.JSON(map[string]string{"message": "hello"})
+	})
+
+	log.Fatal(app.Listen(os.ExpandEnv(":${PORT}")))
 }

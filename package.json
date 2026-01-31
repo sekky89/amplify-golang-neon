@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check"
+    "fmt:check": "oxfmt --check",
+    "sandbox": "ampx sandbox"
   },
   "dependencies": {
     "aws-amplify": "^6.16.0",
