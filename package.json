@@ -11,7 +11,7 @@
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
-    "sandbox": "ampx sandbox"
+    "sandbox": "dotenvx run -f .env.local -- ampx sandbox"
   },
   "dependencies": {
     "aws-amplify": "^6.16.0",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@aws-amplify/backend": "^1.20.0",
     "@aws-amplify/backend-cli": "^1.8.2",
+    "@dotenvx/dotenvx": "^1.52.0",
     "@eslint/js": "^9.39.2",
     "@types/node": "^24.10.9",
     "@types/react": "^19.2.10",
