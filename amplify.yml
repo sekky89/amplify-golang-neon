@@ -3,7 +3,7 @@ backend:
   phases:
     preBuild:
       commands:
-        - sudo yum -y upgrade && sudo yum -y install golang
+        - sudo yum -y install golang
         - mkdir ~/go_proj
         - export PATH=$PATH:/usr/local/go/bin
         - export GOPATH=$HOME/go_proj
