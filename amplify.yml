@@ -3,12 +3,11 @@ backend:
   phases:
     preBuild:
       commands:
-        - sudo yum -y install golang
+        - curl -fsSL https://golang.org/dl/go1.25.6.linux-amd64.tar.gz | tar -C /usr/local -xz
         - mkdir ~/go_proj
         - export PATH=$PATH:/usr/local/go/bin
         - export GOPATH=$HOME/go_proj
         - export GOBIN=$GOPATH/bin
-        - go install golang.org/dl/go1.25.6@latest
     build:
       commands:
         - corepack enable
