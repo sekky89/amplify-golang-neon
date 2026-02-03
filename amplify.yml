@@ -8,6 +8,7 @@ backend:
         - export PATH=$PATH:/usr/local/go/bin
         - export GOPATH=$HOME/go_proj
         - export GOBIN=$GOPATH/bin
+        - go install golang.org/dl/go1.26@latest
     build:
       commands:
         - corepack enable
