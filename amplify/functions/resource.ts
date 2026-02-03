@@ -10,6 +10,7 @@ const functionDir = path.dirname(fileURLToPath(import.meta.url));
 export const apiHandler = defineFunction(
   (scope) =>
     new lmd.Function(scope, "API", {
+      functionName: "apiLambda",
       handler: "bootstrap",
       runtime: lmd.Runtime.PROVIDED_AL2023,
       timeout: cdk.Duration.seconds(5),
@@ -20,7 +21,7 @@ export const apiHandler = defineFunction(
           local: {
             tryBundle(outputDir: string) {
               execSync(
-                `cd ${functionDir}/api && GOARCH=arm64 GOOS=linux CGO_ENABLED=0 go build -tags lambda.norpc -o ${path.join(outputDir)}/bootstrap main.go`,
+                `cd ${functionDir}/api && GOARCH=arm64 GOOS=linux CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o ${path.join(outputDir)}/bootstrap main.go`,
               );
               return true;
             },
