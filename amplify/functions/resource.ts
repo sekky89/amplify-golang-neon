@@ -10,7 +10,6 @@ const functionDir = path.dirname(fileURLToPath(import.meta.url));
 export const apiHandler = defineFunction(
   (scope) =>
     new lmd.Function(scope, "API", {
-      functionName: "apiLambda",
       handler: "bootstrap",
       runtime: lmd.Runtime.PROVIDED_AL2023,
       timeout: cdk.Duration.seconds(5),
